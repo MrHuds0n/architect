@@ -6,11 +6,16 @@ export async function isAdmin(msg) {
 	const guildConfig = res.get(msg.guild.id)
 	const admin = msg.guild.roles.find('name', guildConfig.adminRole)
 
-	if(msg.member.roles.has(admin.id) || msg.member.id === secret.corile) {
+	if(msg.member.id === secret.corile) {
 		return true
 	}
 	else {
-		return false
+		if(msg.member.roles.has(admin.id)) {
+			return true
+		}
+		else {
+			return false			
+		}
 	}
 
 }

@@ -42,8 +42,25 @@ client.on('message', async (msg) => {
 			try {
 				const r = eval(msg.content.substr(5))
 				msg.channel.send(`Evaled: \n\`\`\`${msg.content.substr(5)}\n\n> ${r}\n\`\`\``)
+
+				return
 			}
 			catch(err) {
+				msg.channel.send(`${err.name}: ${err.message}`)
+			}
+		}
+	}
+
+	//Reload config
+	if(msg.author.id === secret.corile) {
+		if(msg.content.startsWith('reloadconfig')) {
+			try {
+				config.then(res => {
+					res.set(msg.guild.id, defaults)
+					msg.channel.send('Config reloaded')
+				})
+			}
+			catch (err) {
 				msg.channel.send(`${err.name}: ${err.message}`)
 			}
 		}

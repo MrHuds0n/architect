@@ -8,6 +8,7 @@ export async function persistentPlayerlist() {
 	const loadedConfig = await config
 
 	setInterval(updatePlayerlists, 60 * 1000)
+	updatePlayerlists()
 
 	async function updatePlayerlists() {
 		//Get playerlist
@@ -16,6 +17,8 @@ export async function persistentPlayerlist() {
 		//Get all guilds
 		client.guilds.map(async (guild) => {
 			const guildConfig = loadedConfig.get(guild.id)
+
+			if(!guildConfig) return
 
 			//Search for a channel called 'playerlist' in all guilds
 			const playerlistChannel = guild.channels.find(channel => {

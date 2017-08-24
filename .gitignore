@@ -1,3 +1,5 @@
 node_modules
 lib
+data
+yarn.lock
 src/secret.js
